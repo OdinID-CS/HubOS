@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#F5F7FB" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta
+      name="description"
+      content="HubOS · Innovation Hub Management Platform"
+    />
+    <title>HubOS | K-Innovation Hub</title>
+    <script>
+      (() => {
+        let preference = "system";
+        try {
+          const storedPreference = localStorage.getItem("hubos-theme");
+          if (
+            storedPreference === "system" ||
+            storedPreference === "light" ||
+            storedPreference === "dark"
+          ) {
+            preference = storedPreference;
+          }
+        } catch (error) {
+          console.error("Unable to read the saved theme preference.", error);
+        }
+
+        const isDark =
+          preference === "dark" ||
+          (preference === "system" &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches);
+        document.documentElement.dataset.theme = isDark ? "dark" : "light";
+        document
+          .querySelector('meta[name="theme-color"]')
+          ?.setAttribute("content", isDark ? "#0B1220" : "#F5F7FB");
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
